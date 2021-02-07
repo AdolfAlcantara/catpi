@@ -19,7 +19,7 @@ const KittyReducer = (state = KittyDefaultReducerState, action:CatActions): Kitt
         }
         case "RemoveKitty":{
             return {
-                kitties:state.kitties.filter(x=>x.id !== action.id)
+                kitties:state.kitties.filter(x=>x.dbId !== action.id)
             }
         }
         case "Set_Kitties":{

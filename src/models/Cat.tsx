@@ -12,6 +12,7 @@ export interface KittyState{
 
 export interface Kitty{
     id: string,
+    dbId:string,
     url:string
 }
 

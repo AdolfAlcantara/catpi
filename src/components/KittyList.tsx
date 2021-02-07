@@ -15,12 +15,18 @@ const KittyList = () =>{
         dbGetKitties(dispatch);
     }, [])
 
+    useEffect(() => {
+        console.log(kitties)
+    }, [kitties])
+
     return(
         <div>
-            <h1>Saved Kitties</h1>
-            {   
-                kitties.map(kitty => <KittyComponent id={kitty.id} url={kitty.url}/>)
-            }
+            <h1 className="subheader">Saved Kitties</h1>
+            <div className="kitty-container">
+                {   
+                    kitties.map(kitty => <KittyComponent id={kitty.id} dbId={kitty.dbId} url={kitty.url}/>)
+                }
+            </div>
         </div>
     )
 

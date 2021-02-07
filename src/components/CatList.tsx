@@ -26,23 +26,27 @@ const CatList = () =>{
     // console.log(videos)
     return (
         <div>
-            <h1>Random Cats</h1>
-            <button onClick={randomize}>Random</button>
-        {
-            cats.map((c)=> <CatComponent key={c.id} id={c.id} url={c.url}/>)
-        /* {
-        video.map((video)=>(
-            <VideoComponent id={video.videoId}
-                        title={video.title}
-                        channel={video.channelTitle}
-                        tnurl={video.tnUrl}
-                        tnheight={video.tnHeight}
-                        tnwidth ={video.tnWidth}
-            />
-            ))
-        } */
-        
-        }
+            <h1 className="subheader">Random Cats</h1>
+            <div>
+                <button onClick={randomize} className="random-button">Random</button>
+            </div>
+            <div className="cat-container">
+                {
+                    cats.map((c)=> <CatComponent key={c.id} id={c.id} url={c.url}/>)
+                /* {
+                video.map((video)=>(
+                    <VideoComponent id={video.videoId}
+                                title={video.title}
+                                channel={video.channelTitle}
+                                tnurl={video.tnUrl}
+                                tnheight={video.tnHeight}
+                                tnwidth ={video.tnWidth}
+                    />
+                    ))
+                } */
+                
+                }
+            </div>
         </div>)
     
             

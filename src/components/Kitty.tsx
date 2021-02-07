@@ -1,24 +1,22 @@
 import { Dispatch, MouseEvent } from "react"
 import { useDispatch } from "react-redux"
 import { CatActions } from "../models/actions/CatActions"
+import {dbRemoveKitty} from "../actions/CatActions"
 import { Kitty } from "../models/Cat";
 
-const KittyComponent:React.FC<Kitty> = ({id, url}) =>{
+const KittyComponent:React.FC<Kitty> = ({id,dbId, url}) =>{
 
     const dispatch = useDispatch<Dispatch<CatActions>>();
 
     const RemoveKitty = (e:MouseEvent,kittyId:string) =>{
-        dispatch({
-            type:"RemoveKitty",
-            id:kittyId
-        });
+        dbRemoveKitty(dispatch,kittyId);
     }
 
     return (
-        <div>
+        <div className="kitty-subcontainer">
             <h3>{id}</h3>
-            <img src={url} alt="gatito"/>
-            <button onClick={(e:MouseEvent)=>RemoveKitty(e,id)}>
+            <img className="kitty-image" src={url} alt="gatito"/>
+            <button className="remove-button" onClick={(e:MouseEvent)=>RemoveKitty(e,dbId)}>
                 Remove
             </button>
         </div>

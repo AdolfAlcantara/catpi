@@ -2,6 +2,7 @@ import { ADD_KITTY, CatActions, REMOVE_KITTY, SET_KITTIES } from '../models/acti
 import {Kitty} from '../models/Cat';
 import database from '../firebase/firebase';
 import { Dispatch } from 'react';
+import { readConfigFile } from 'typescript';
 
 export const SetKitties = (kitties:Kitty[]):CatActions =>({
     type: SET_KITTIES,
@@ -15,7 +16,8 @@ export const dbGetKitties = (dispatch:Dispatch<CatActions>) =>{
                 const kitties:Kitty[] = [];
                 snapshot.forEach((child)=>{
                     kitties.push({
-                        ...child.val()
+                        ...child.val(),
+                        dbId: child.key
                     })
                 });
                 dispatch({
@@ -35,9 +37,11 @@ export const dbAddKitty = (dispatch:Dispatch<CatActions>,kitty:Kitty) =>{
     //     console.log("start");
         database.ref(`cats`)
         .push(kitty)
-        .then(()=>{
-            console.log("then")
-            dispatch({type:ADD_KITTY,kitty})
+        .then((ref)=>{
+            dispatch(AddKitty({
+                ...kitty,
+                dbId:ref.key?ref.key:kitty.id
+            }))
         })
         .catch((e)=>{
             console.log(e);
@@ -55,6 +59,7 @@ export const RemoveKitty = (id:string):CatActions=>({
 
 export const dbRemoveKitty = (dispatch:Dispatch<CatActions>,id:string) =>{
     // const remove = (dispatch:Dispatch<CatActions>) =>{
+        console.log(id)
         database.ref(`cats/${id}`)
         .remove()
         .then(()=>{
